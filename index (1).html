@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kasparas Murėnas — Portfolio</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ─── CUSTOM CURSOR ───────────────────────────────────────── -->
+  <div id="cur">
+    <svg viewBox="0 0 28 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Orienteering control flag: orange/white square prism on a post -->
+      <rect x="4" y="1" width="22" height="22" rx="1" fill="white" opacity=".92"/>
+      <polygon points="4,1 26,1 4,23" fill="#ff6600"/>
+      <line x1="4" y1="1" x2="4" y2="35" stroke="#ff6600" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="4" cy="35" r="2.2" fill="#ff6600"/>
+    </svg>
+  </div>
+  <div id="cur-ring"></div>
+
+  <!-- ─── WAVE CANVAS ─────────────────────────────────────────── -->
+  <canvas id="wc"></canvas>
+
+  <!-- ─── TOPOGRAPHIC BACKGROUND ──────────────────────────────── -->
+  <svg id="topo" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#4ec870" stroke-width=".9" fill="none">
+      <path d="M-200,460 Q180,395 420,435 Q660,475 860,412 Q1060,350 1290,392 Q1480,430 1650,405"/>
+      <path d="M-200,430 Q180,365 420,405 Q660,445 860,382 Q1060,320 1290,362 Q1480,400 1650,375"/>
+      <path d="M-200,490 Q180,425 420,465 Q660,505 860,442 Q1060,380 1290,422 Q1480,460 1650,435"/>
+      <path d="M-200,520 Q180,455 420,495 Q660,535 860,472 Q1060,410 1290,452 Q1480,490 1650,465"/>
+      <path d="M-200,550 Q180,485 420,525 Q660,565 860,502 Q1060,440 1290,482 Q1480,520 1650,495"/>
+      <path d="M-200,360 Q180,295 420,335 Q660,375 860,312 Q1060,250 1290,292 Q1480,330 1650,305"/>
+      <path d="M-200,310 Q180,245 420,285 Q660,325 860,262 Q1060,200 1290,242 Q1480,280 1650,255"/>
+      <path d="M-200,585 Q180,520 420,560 Q660,600 860,537 Q1060,475 1290,517 Q1480,555 1650,530"/>
+      <path d="M-200,625 Q180,560 420,600 Q660,640 860,577 Q1060,515 1290,557 Q1480,595 1650,570"/>
+      <path d="M-200,260 Q180,195 420,235 Q660,275 860,212 Q1060,150 1290,192 Q1480,230 1650,205"/>
+      <path d="M-200,210 Q180,145 420,185 Q660,225 860,162 Q1060,100 1290,142 Q1480,180 1650,155"/>
+      <path d="M-200,660 Q180,595 420,635 Q660,675 860,612 Q1060,550 1290,592 Q1480,630 1650,605"/>
+      <path d="M-200,695 Q180,630 420,670 Q660,710 860,647 Q1060,585 1290,627 Q1480,665 1650,640"/>
+      <path d="M-200,730 Q180,665 420,705 Q660,745 860,682 Q1060,620 1290,662 Q1480,700 1650,675"/>
+      <path d="M-200,160 Q180,95  420,135 Q660,175 860,112 Q1060,50  1290,92  Q1480,130 1650,105"/>
+      <path d="M-200,770 Q180,705 420,745 Q660,785 860,722 Q1060,660 1290,702 Q1480,740 1650,715"/>
+    </g>
+  </svg>
+
+  <!-- ─── NAVIGATION ───────────────────────────────────────────── -->
+  <nav>
+    <div class="nav-logo">KM</div>
+    <ul class="nav-links">
+      <li><a href="#hero"         class="active">Home</a></li>
+      <li><a href="#about"                      >About</a></li>
+      <li><a href="#orienteering"               >Orienteering</a></li>
+      <li><a href="#hobbies"                    >Hobbies</a></li>
+      <li><a href="#projects"                   >Projects</a></li>
+      <li><a href="#skills"                     >Skills</a></li>
+      <li><a href="#contact"                    >Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- HERO                                                        -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="hero">
+    <div class="h-eye">Portfolio — 2025</div>
+    <h1 class="h-name">Kasparas<br><em>Murėnas</em></h1>
+    <div class="h-chips">
+      <span class="chip">Orienteer</span>
+      <span class="chip">KTU Student</span>
+      <span class="chip">Software Engineering</span>
+      <span class="chip">Lithuania</span>
+      <span class="chip">JWC Athlete</span>
+    </div>
+    <div class="h-scroll">Scroll to explore</div>
+    <div class="h-deco" aria-hidden="true">KM</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- ABOUT                                                       -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="about">
+    <div class="inner">
+      <div class="s-label">Personal</div>
+      <h2 class="s-title">About Me</h2>
+      <div class="about-grid reveal">
+
+        <div class="about-text">
+          <p>Hello — I'm <strong>Kasparas Murėnas</strong>, a student at <strong>Kauno technologijos universitetas (KTU)</strong> in Kaunas, Lithuania. I study <strong>Software Engineering</strong> and am drawn to building things that are elegant, fast, and purposeful.</p>
+          <p>Outside the lecture hall you'll find me deep in a forest, map in hand, racing across Europe. I've competed at the <strong>Junior World Championships three years in a row</strong> and made my senior World Cup debut in 2026 — orienteering taught me to think fast, navigate uncertainty, and push past limits.</p>
+          <p>This portfolio is a window into who I am — athlete, developer, maker, and explorer. I write code, I run through forests, and I'm always looking for the next problem to solve.</p>
+        </div>
+
+        <div class="stats">
+          <div class="s-box">
+            <div class="s-num">LT</div>
+            <div class="s-lbl">Nationality</div>
+          </div>
+          <div class="s-box">
+            <div class="s-num">KTU</div>
+            <div class="s-lbl">Soft. Engineering</div>
+          </div>
+          <div class="s-box">
+            <div class="s-num">3×</div>
+            <div class="s-lbl">JWC Appearances</div>
+          </div>
+          <div class="s-box">
+            <div class="s-num">WC</div>
+            <div class="s-lbl">World Cup 2026</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- ORIENTEERING                                               -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="orienteering">
+    <div class="inner">
+      <div class="s-label">Sport</div>
+      <h2 class="s-title">Orienteering</h2>
+      <div class="o-grid reveal">
+
+        <!-- Race results table -->
+        <div>
+          <table class="race-table">
+            <thead>
+              <tr>
+                <th>Event</th>
+                <th>Format</th>
+                <th>Date</th>
+                <th>Place</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>World Cup — Sprint Final</td>
+                <td>Sprint</td><td>Apr 2026</td>
+                <td>78 / Senior</td>
+                <td>16:23</td>
+              </tr>
+              <tr>
+                <td>Vilnius 2026 — 3 Days</td>
+                <td>Sprint</td><td>May 2026</td>
+                <td><span class="bdg silver">2nd M21E</span></td>
+                <td>14:15</td>
+              </tr>
+              <tr>
+                <td>Baltic Championships</td>
+                <td>Long</td><td>May 2026</td>
+                <td>19th M21E</td>
+                <td>1:44:13</td>
+              </tr>
+              <tr>
+                <td>Junior World Championships</td>
+                <td>Middle</td><td>Jul 2025</td>
+                <td><span class="bdg top14">14th</span></td>
+                <td>29:29</td>
+              </tr>
+              <tr>
+                <td>Junior World Championships</td>
+                <td>Sprint</td><td>Jul 2025</td>
+                <td>23rd</td>
+                <td>14:03</td>
+              </tr>
+              <tr>
+                <td>Spring Cup 2025 (WRE)</td>
+                <td>Middle</td><td>Apr 2025</td>
+                <td>5th M21</td>
+                <td>29:00</td>
+              </tr>
+              <tr>
+                <td>Junior World Championships</td>
+                <td>Middle</td><td>Jul 2024</td>
+                <td>27th</td>
+                <td>28:48</td>
+              </tr>
+              <tr>
+                <td>Junior World Championships</td>
+                <td>Long</td><td>Jul 2023</td>
+                <td><span class="bdg top14">12th</span></td>
+                <td>1:20:26</td>
+              </tr>
+              <tr>
+                <td>EYOC — Relay</td>
+                <td>Relay</td><td>Jun 2022</td>
+                <td><span class="bdg silver">Team 2nd</span></td>
+                <td>1:50:07</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Info cards -->
+        <div class="o-cards">
+          <div class="info-card">
+            <div class="ic-title">Athlete Profile</div>
+            <div class="ic-row"><span class="ic-k">IOF ID</span><span class="ic-v">41172</span></div>
+            <div class="ic-row"><span class="ic-k">Born</span><span class="ic-v">2005, Lithuania</span></div>
+            <div class="ic-row"><span class="ic-k">Club</span><span class="ic-v">Medeina OK</span></div>
+            <div class="ic-row"><span class="ic-k">Also races</span><span class="ic-v">Göteborg Majorna OK</span></div>
+            <div class="ic-row"><span class="ic-k">Discipline</span><span class="ic-v">FootO · SkiO</span></div>
+          </div>
+          <div class="info-card">
+            <div class="ic-title">Gear</div>
+            <div class="ic-row"><span class="ic-k">Watch</span><span class="ic-v">Garmin Forerunner</span></div>
+            <div class="ic-row"><span class="ic-k">Compass</span><span class="ic-v">Silva Jet</span></div>
+            <div class="ic-row"><span class="ic-k">Shoes</span><span class="ic-v">Inov-8 X-Talon</span></div>
+            <div class="ic-row"><span class="ic-k">GPS</span><span class="ic-v">Garmin eTrex</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- HOBBIES                                                     -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="hobbies">
+    <div class="inner">
+      <div class="s-label">Interests</div>
+      <h2 class="s-title">Hobbies</h2>
+      <div class="hobby-grid reveal">
+
+        <div class="h-card">
+          <div class="h-ico">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <div class="h-ttl">Orienteering</div>
+          <p class="h-desc">Racing through forests and urban terrain using only a compass and a topographic map. Navigation meets endurance.</p>
+        </div>
+
+        <div class="h-card">
+          <div class="h-ico">
+            <svg viewBox="0 0 24 24"><path d="M13 4a1 1 0 1 0 2 0 1 1 0 0 0-2 0"/><path d="M7 10l2-3 2 1 1-2 3 4-2 1 1 3-7-1z"/><path d="M5 20l5-5"/><path d="M15 16l4 4"/></svg>
+          </div>
+          <div class="h-ttl">Trail Running</div>
+          <p class="h-desc">Off-road running through nature — building the aerobic base and technical foot speed that competitive orienteering demands.</p>
+        </div>
+
+        <div class="h-card">
+          <div class="h-ico">
+            <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <div class="h-ttl">Software Engineering</div>
+          <p class="h-desc">Studying Software Engineering at KTU — writing clean code, designing systems, and turning real-world problems into working software.</p>
+        </div>
+
+        <div class="h-card">
+          <div class="h-ico">
+            <svg viewBox="0 0 24 24"><path d="M3 7l9-4 9 4v5a9 9 0 0 1-9 9 9 9 0 0 1-9-9V7z"/><path d="M9 12l2 2 4-4"/></svg>
+          </div>
+          <div class="h-ttl">Cartography</div>
+          <p class="h-desc">Reading and analysing orienteering maps. Understanding how terrain translates to symbol and line — then using that on race day.</p>
+        </div>
+
+        <div class="h-card">
+          <div class="h-ico">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>
+          <div class="h-ttl">Photography</div>
+          <p class="h-desc">Capturing landscapes, race moments and quiet nature scenes. Finding composition in the same environments I navigate through.</p>
+        </div>
+
+        <div class="h-card">
+          <div class="h-ico">
+            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 8l3 3-3 3"/><line x1="13" y1="14" x2="17" y2="14"/></svg>
+          </div>
+          <div class="h-ttl">Coding & Web</div>
+          <p class="h-desc">Building tools and websites for fun. Turning ideas into functional software — from GPS data scripts to this very portfolio.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- PROJECTS                                                    -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="projects">
+    <div class="inner">
+      <div class="s-label">Work</div>
+      <h2 class="s-title">Projects</h2>
+      <div class="proj-list reveal">
+
+        <div class="proj">
+          <div class="p-num">01</div>
+          <div>
+            <div class="p-title">Physics PBL — Pieniški Saldainiai</div>
+            <div class="p-desc">Applied physics project at KTU analysing thermal elongation of solid bodies and entropy changes in milk powder production. Covered density, heat quantities, and real industrial processes.</div>
+            <div class="p-tags">
+              <span class="p-tag">Physics</span>
+              <span class="p-tag">KTU</span>
+              <span class="p-tag">Thermodynamics</span>
+              <span class="p-tag">PBL</span>
+            </div>
+          </div>
+          <div class="p-arr">→</div>
+        </div>
+
+        <div class="proj">
+          <div class="p-num">02</div>
+          <div>
+            <div class="p-title">Portfolio Website</div>
+            <div class="p-desc">This very site — built from scratch in vanilla HTML, CSS and JavaScript. Custom orienteering cursor, canvas wave trail, topographic background and fully responsive layout.</div>
+            <div class="p-tags">
+              <span class="p-tag">HTML</span>
+              <span class="p-tag">CSS</span>
+              <span class="p-tag">JavaScript</span>
+              <span class="p-tag">Canvas API</span>
+            </div>
+          </div>
+          <div class="p-arr">→</div>
+        </div>
+
+        <div class="proj">
+          <div class="p-num">03</div>
+          <div>
+            <div class="p-title">Orienteering Route Analyser</div>
+            <div class="p-desc">A Python tool for parsing GPS tracks from competitions, overlaying them on O-maps and extracting split-time data to improve training decisions and race strategy.</div>
+            <div class="p-tags">
+              <span class="p-tag">Python</span>
+              <span class="p-tag">GPS Data</span>
+              <span class="p-tag">Data Analysis</span>
+            </div>
+          </div>
+          <div class="p-arr">→</div>
+        </div>
+
+        <div class="proj">
+          <div class="p-num">04</div>
+          <div>
+            <div class="p-title">Study Dashboard</div>
+            <div class="p-desc">A personal dashboard to track KTU coursework deadlines, physics lab reports, and project milestones. Built to reduce stress and maximise focus.</div>
+            <div class="p-tags">
+              <span class="p-tag">Productivity</span>
+              <span class="p-tag">JavaScript</span>
+              <span class="p-tag">LocalStorage</span>
+            </div>
+          </div>
+          <div class="p-arr">→</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- SKILLS                                                      -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="skills">
+    <div class="inner">
+      <div class="s-label">Expertise</div>
+      <h2 class="s-title">Skills</h2>
+      <div class="skill-grid reveal" id="skillGrid">
+
+        <div class="sk-box" data-pct="90">
+          <div class="sk-name">Orienteering</div>
+          <div class="sk-bar-bg"><div class="sk-bar-fill" style="width:0%"></div></div>
+          <div class="sk-pct">JWC / World Cup</div>
+        </div>
+        <div class="sk-box" data-pct="78">
+          <div class="sk-name">Software Eng.</div>
+          <div class="sk-bar-bg"><div class="sk-bar-fill" style="width:0%"></div></div>
+          <div class="sk-pct">KTU main study</div>
+        </div>
+        <div class="sk-box" data-pct="70">
+          <div class="sk-name">Python</div>
+          <div class="sk-bar-bg"><div class="sk-bar-fill" style="width:0%"></div></div>
+          <div class="sk-pct">Data & scripting</div>
+        </div>
+        <div class="sk-box" data-pct="75">
+          <div class="sk-name">HTML / CSS</div>
+          <div class="sk-bar-bg"><div class="sk-bar-fill" style="width:0%"></div></div>
+          <div class="sk-pct">Frontend design</div>
+        </div>
+        <div class="sk-box" data-pct="65">
+          <div class="sk-name">JavaScript</div>
+          <div class="sk-bar-bg"><div class="sk-bar-fill" style="width:0%"></div></div>
+          <div class="sk-pct">Web interactivity</div>
+        </div>
+        <div class="sk-box" data-pct="80">
+          <div class="sk-name">Map Reading</div>
+          <div class="sk-bar-bg"><div class="sk-bar-fill" style="width:0%"></div></div>
+          <div class="sk-pct">Competition level</div>
+        </div>
+        <div class="sk-box" data-pct="60">
+          <div class="sk-name">Photography</div>
+          <div class="sk-bar-bg"><div class="sk-bar-fill" style="width:0%"></div></div>
+          <div class="sk-pct">Nature & sport</div>
+        </div>
+        <div class="sk-box" data-pct="95">
+          <div class="sk-name">Lithuanian</div>
+          <div class="sk-bar-bg"><div class="sk-bar-fill" style="width:0%"></div></div>
+          <div class="sk-pct">Native speaker</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- CONTACT                                                     -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="contact">
+    <div class="inner" style="background:var(--bg2); margin:0; max-width:100%; padding:7rem 3.5rem;">
+      <div style="max-width:1140px; margin:0 auto;">
+        <div class="s-label">Connect</div>
+        <h2 class="s-title">Get in Touch</h2>
+        <div class="c-grid reveal">
+
+          <div class="c-text">
+            <p>Whether you want to talk about <strong>orienteering</strong>, collaborate on a <strong>project</strong>, discuss physics, or just say hello — I'm always open to new connections and conversations.</p>
+            <p style="margin-top:1.4rem;">Based in <strong>Kaunas, Lithuania</strong>. Available for freelance work, collaboration and new opportunities.</p>
+          </div>
+
+          <div class="c-links">
+            <a href="mailto:kasparas@example.com" class="c-link">
+              <div class="c-icon">✉</div>
+              <div>
+                <div class="c-lbl">Email</div>
+                <div class="c-val">kasparas@example.com</div>
+              </div>
+            </a>
+            <a href="https://github.com/" class="c-link">
+              <div class="c-icon">⌥</div>
+              <div>
+                <div class="c-lbl">GitHub</div>
+                <div class="c-val">github.com/kasparas</div>
+              </div>
+            </a>
+            <a href="https://linkedin.com/" class="c-link">
+              <div class="c-icon">in</div>
+              <div>
+                <div class="c-lbl">LinkedIn</div>
+                <div class="c-val">linkedin.com/in/kasparas-murenas</div>
+              </div>
+            </a>
+            <a href="https://eventor.orienteering.sport/Athletes/Details/41172" class="c-link">
+              <div class="c-icon">🧭</div>
+              <div>
+                <div class="c-lbl">IOF Eventor</div>
+                <div class="c-val">IOF ID 41172 — full results</div>
+              </div>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ───────────────────────────────────────────────── -->
+  <footer>
+    <div class="ft">© 2025 Kasparas Murėnas</div>
+    <div class="ft">Kaunas · Lithuania</div>
+    <div class="ft">Built from scratch</div>
+  </footer>
+
+  <!-- JavaScript — loaded at end of body so DOM is ready -->
+  <script src="main.js"></script>
+
+</body>
+</html>
